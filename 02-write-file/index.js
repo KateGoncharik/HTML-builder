@@ -14,9 +14,10 @@ fs.access(file, fs.F_OK, (err) => {
     }
 })
 
-process.stdout.write('Write some text!');
+process.stdout.write('Write some text! \n');
 process.stdin.on('data', data => {
     if (data.toString().trim() === 'exit') {
+        process.stdout.write('Goodbye, my friend! \n')
         process.exit(1);
     }
     fs.appendFile(
@@ -27,3 +28,9 @@ process.stdin.on('data', data => {
         }
     )
 });
+
+process.on('SIGINT', () => {
+    console.log('Goodbye, my friend! \n');
+    process.exit();
+})
+
